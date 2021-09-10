@@ -1,0 +1,29 @@
+{
+  "name": "netscape-bookmark-file-converter",
+  "version": "1.0.0",
+  "description": "Converts Netscape Bookmark export file format used by Google Chrome and Microsoft Edge to an array of urls and their respective folder tags.",
+  "main": "index.js",
+  "dependencies": {
+    "@types/cheerio": "^0.22.30",
+    "@types/node": "^16.7.13",
+    "cheerio": "^1.0.0-rc.10"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glenholmes/netscape-bookmark-export-to-json.git"
+  },
+  "keywords": [],
+  "author": "Glen Holmes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glenholmes/netscape-bookmark-export-to-json/issues"
+  },
+  "homepage": "https://github.com/glenholmes/netscape-bookmark-export-to-json#readme"
+}
