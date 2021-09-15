@@ -1,5 +1,9 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import { load } from 'cheerio';
-import { JsonDataTreeObject } from './interfaces';
+import { JsonDataTreeObject, Bookmark } from './interfaces';
 
 /**
  * Uses JSON stringfily to santize undefinded and null branches
@@ -7,13 +11,9 @@ import { JsonDataTreeObject } from './interfaces';
  * @param obj
  * @returns
  */
-export const sanitize = (obj: any) => {
-  return JSON.parse(
-    JSON.stringify(obj, (key, value) => {
-      return value === null ? undefined : value;
-    }),
-  );
-};
+export const sanitize = (obj: any): object => JSON.parse(
+  JSON.stringify(obj, (key, value) => (value === null ? undefined : value)),
+);
 
 /**
  * Removes all null values from the nested object
@@ -21,11 +21,11 @@ export const sanitize = (obj: any) => {
  * @param currentValue
  * @returns
  */
-export const noNull = (currentValue: any) => {
+export const noNull = (currentValue: any): any => {
   if (
-    currentValue &&
-    typeof currentValue === 'object' &&
-    Array.isArray(currentValue.children)
+    currentValue
+    && typeof currentValue === 'object'
+    && Array.isArray(currentValue.children)
   ) {
     currentValue.children = currentValue.children.filter(noNull);
   }
@@ -39,16 +39,17 @@ export const noNull = (currentValue: any) => {
  * @param obj
  * @returns
  */
-export const reduceToArray = (jsonDataArray: Array<any>): any => {
-  return jsonDataArray.reduce((previousValue, currentValue) => {
+export const reduceToArray = (jsonDataArray: Array<any>): Array<Bookmark> => jsonDataArray.reduce(
+  (previousValue, currentValue) => {
     if (currentValue?.url) {
       return previousValue.concat([currentValue]);
     }
     if (currentValue?.children) {
       return previousValue.concat(reduceToArray(currentValue.children));
     }
-  }, []);
-};
+    return previousValue.concat([]);
+  }, [],
+);
 
 /**
  * Uses Cheerio to convert bookmark file data to a stringified JSON Object
@@ -58,7 +59,7 @@ export const reduceToArray = (jsonDataArray: Array<any>): any => {
  * @param fileData
  * @returns
  */
-export const useCheerioToConvertStringToJson = (fileData: string) => {
+export const useCheerioToConvertStringToJson = (fileData: string): object => {
   try {
     const $ = load(fileData);
     const jsonDataTree: any = (
@@ -77,19 +78,17 @@ export const useCheerioToConvertStringToJson = (fileData: string) => {
           ? tags.concat([children[0].children[0].data.trim()])
           : [children[0].children[0].data.trim()];
         return {
-          children: children.map((child) => {
-            return jsonDataTree(child, tagText);
-          }),
+          children: children.map((child) => jsonDataTree(child, tagText)),
         };
       }
 
       if (children.length > 1) {
         return {
-          children: children.map((child) => {
-            return jsonDataTree(child, tags);
-          }),
+          children: children.map((child) => jsonDataTree(child, tags)),
         };
       }
+
+      return {};
     };
 
     return jsonDataTree($('body')[0], []);

@@ -32,3 +32,10 @@ typings/
 
 # Library
 /lib
+
+# Lock Files
+*.lock
+package-lock.json
+
+# ESLint
+.eslintrc.js

@@ -4,3 +4,8 @@ export interface JsonDataTreeObject {
   data?: string;
   children?: Array<any>;
 }
+
+export interface Bookmark {
+  url: string;
+  tags: Array<string>;
+}

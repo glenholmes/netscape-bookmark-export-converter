@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import { readFile } from 'fs/promises';
 import {
   reduceToArray,
@@ -7,7 +10,7 @@ import {
 } from './utilities';
 
 /**
- * Converts Netscape Bookmark export file to an array of urls and tags
+ * Converts Netscape Bookmark export file to an array of URIs and Tags
  *
  * @function
  * @public
@@ -20,10 +23,10 @@ const convert = async (fileName: string) => {
     const jsonData = reduceToArray(
       [sanitize(useCheerioToConvertStringToJson(fileData))].filter(noNull),
     );
-    console.log(jsonData);
     return jsonData;
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
 
