@@ -11,9 +11,8 @@ import { JsonDataTreeObject, Bookmark } from './interfaces';
  * @param obj
  * @returns
  */
-export const sanitize = (obj: any): object => JSON.parse(
-  JSON.stringify(obj, (key, value) => (value === null ? undefined : value)),
-);
+export const sanitize = (obj: any): object =>
+  JSON.parse(JSON.stringify(obj, (key, value) => (value === null ? undefined : value)));
 
 /**
  * Removes all null values from the nested object
@@ -22,11 +21,7 @@ export const sanitize = (obj: any): object => JSON.parse(
  * @returns
  */
 export const noNull = (currentValue: any): any => {
-  if (
-    currentValue
-    && typeof currentValue === 'object'
-    && Array.isArray(currentValue.children)
-  ) {
+  if (currentValue && typeof currentValue === 'object' && Array.isArray(currentValue.children)) {
     currentValue.children = currentValue.children.filter(noNull);
   }
   return currentValue !== null;
@@ -39,8 +34,8 @@ export const noNull = (currentValue: any): any => {
  * @param obj
  * @returns
  */
-export const reduceToArray = (jsonDataArray: Array<any>): Array<Bookmark> => jsonDataArray.reduce(
-  (previousValue, currentValue) => {
+export const reduceToArray = (jsonDataArray: object[]): [Bookmark] =>
+  jsonDataArray.reduce((previousValue: any, currentValue: any) => {
     if (currentValue?.url) {
       return previousValue.concat([currentValue]);
     }
@@ -48,8 +43,7 @@ export const reduceToArray = (jsonDataArray: Array<any>): Array<Bookmark> => jso
       return previousValue.concat(reduceToArray(currentValue.children));
     }
     return previousValue.concat([]);
-  }, [],
-);
+  }, []);
 
 /**
  * Uses Cheerio to convert bookmark file data to a stringified JSON Object
@@ -62,10 +56,7 @@ export const reduceToArray = (jsonDataArray: Array<any>): Array<Bookmark> => jso
 export const useCheerioToConvertStringToJson = (fileData: string): object => {
   try {
     const $ = load(fileData);
-    const jsonDataTree: any = (
-      { tagName, children = [] }: JsonDataTreeObject,
-      tags: Array<string>,
-    ) => {
+    const jsonDataTree: any = ({ tagName, children = [] }: JsonDataTreeObject | any, tags: [string]) => {
       if (tagName === 'dt' && children[0].tagName === 'a') {
         return {
           url: children[0].attribs.href || '',
@@ -78,13 +69,13 @@ export const useCheerioToConvertStringToJson = (fileData: string): object => {
           ? tags.concat([children[0].children[0].data.trim()])
           : [children[0].children[0].data.trim()];
         return {
-          children: children.map((child) => jsonDataTree(child, tagText)),
+          children: children.map((child: any) => jsonDataTree(child, tagText)),
         };
       }
 
       if (children.length > 1) {
         return {
-          children: children.map((child) => jsonDataTree(child, tags)),
+          children: children.map((child: any) => jsonDataTree(child, tags)),
         };
       }
 
@@ -92,8 +83,7 @@ export const useCheerioToConvertStringToJson = (fileData: string): object => {
     };
 
     return jsonDataTree($('body')[0], []);
-  } catch (error) {
-    console.log(error);
+  } catch (_error) {
     return {};
   }
 };
