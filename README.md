@@ -37,6 +37,24 @@ const bookmarksFilePath = join(__dirname, "bookmarks.html");
 const bookmarks: Bookmark[] = await convert(bookmarksFilePath);
 ```
 
+Example Output:
+```
+[
+    { url: 'http://example.com/', tags: [ 'Favorites bar' ] },
+    {
+        url: 'https://www.google.com/',
+        tags: [ 'Favorites bar', 'Search' ]
+    },
+    { url: 'https://www.theverge.com/tech', tags: [ 'Favorites bar' ] },
+    { url: 'https://www.tudublin.ie/', tags: [ 'Favorites bar' ] },
+    { url: 'https://www.imdb.com/', tags: [ 'Favorites bar', 'Movies' ] },
+    {
+        url: 'https://www.imdb.com/title/tt0111161/?ref_=nv_sr_srsg_0',
+        tags: [ 'Favorites bar', 'Movies', 'Best' ]
+    }
+]
+```
+
 ## Testing
 ```sh
 npm run test
