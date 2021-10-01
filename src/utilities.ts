@@ -34,7 +34,7 @@ export const noNull = (currentValue: any): any => {
  * @param obj
  * @returns
  */
-export const reduceToArray = (jsonDataArray: object[]): [Bookmark] =>
+export const reduceToArray = (jsonDataArray: object[]): Bookmark[] =>
   jsonDataArray.reduce((previousValue: any, currentValue: any) => {
     if (currentValue?.url) {
       return previousValue.concat([currentValue]);
@@ -56,7 +56,7 @@ export const reduceToArray = (jsonDataArray: object[]): [Bookmark] =>
 export const useCheerioToConvertStringToJson = (fileData: string): object => {
   try {
     const $ = load(fileData);
-    const jsonDataTree: any = ({ tagName, children = [] }: JsonDataTreeObject | any, tags: [string]) => {
+    const jsonDataTree: any = ({ tagName, children = [] }: JsonDataTreeObject | any, tags: string[]) => {
       if (tagName === 'dt' && children[0].tagName === 'a') {
         return {
           url: children[0].attribs.href || '',

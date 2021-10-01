@@ -30,11 +30,11 @@ import { join } from 'path';
 
 interface Bookmark {
     url: string;
-    tags: [string];
+    tags: string[];
 }
 
 const bookmarksFilePath = join(__dirname, "bookmarks.html");
-const bookmarks: [Bookmark] = await convert(bookmarksFilePath);
+const bookmarks: Bookmark[] = await convert(bookmarksFilePath);
 ```
 
 ## Testing
