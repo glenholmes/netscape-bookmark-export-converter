@@ -1,5 +1,5 @@
 
-# netscape-bookmark-file-converter
+# netscape-bookmark-export-converter
  Converts Netscape Bookmark Format files used by popular web browsers to an array of objects containing individual bookmarks URI's and their respective folder tags.
 
 ## Features
@@ -17,21 +17,31 @@
 ```sh
 npm install netscape-bookmark-export-converter
 ```
+or
+
+```sh
+yarn add netscape-bookmark-export-converter
+```
 
 ## Usage
 ```ts
-import netscapeBookmarkExportConverter from 'netscape-bookmark-export-converter';
-import {join} from 'path';
+import convert from 'netscape-bookmark-export-converter';
+import { join } from 'path';
 
 interface Bookmark {
     url: string;
     tags: [string];
 }
 
-const bookmarks: Array<Bookmark> = await netscapeBookmarkExportConverter(join(__dirname, '/bookmarks.html'));
+const bookmarksFilePath = join(__dirname, "bookmarks.html");
+const bookmarks: Array<Bookmark> = await convert(bookmarksFilePath);
 ```
 
 ## Testing
-
-
- Testing, refactor and usage
+```sh
+npm run test
+```
+or
+```sh
+yarn test
+```

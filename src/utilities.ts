@@ -6,7 +6,7 @@ import { load } from 'cheerio';
 import { JsonDataTreeObject, Bookmark } from './interfaces';
 
 /**
- * Uses JSON stringfily to santize undefinded and null branches
+ * Uses JSON stringify to santize undefinded and null branches
  *
  * @param obj
  * @returns
