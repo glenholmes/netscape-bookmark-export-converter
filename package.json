@@ -2,7 +2,8 @@
   "name": "netscape-bookmark-export-converter",
   "version": "1.0.0",
   "description": "Converts Netscape Bookmark Format files used by popular web browsers to an array of objects containing individual bookmarks URI's and their respective folder tags.",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "dependencies": {
     "@types/cheerio": "^0.22.30",
     "@types/node": "^16.7.13",
@@ -30,14 +31,19 @@
     "test": "jest",
     "build": "tsc",
     "format": "prettier --write \"src/*.ts\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "files": ["lib/**/*"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/glenholmes/netscape-bookmark-export-converter.git"
   },
-  "keywords": [],
+  "keywords": ["Netscape", "Chrome", "Bookmarks", "Favorites", "Bookmark", "Favorite", "Converter", "Export"],
   "author": "Glen Holmes",
   "license": "MIT",
   "bugs": {
