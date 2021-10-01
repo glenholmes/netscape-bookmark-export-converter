@@ -34,7 +34,7 @@ interface Bookmark {
 }
 
 const bookmarksFilePath = join(__dirname, "bookmarks.html");
-const bookmarks: Array<Bookmark> = await convert(bookmarksFilePath);
+const bookmarks: [Bookmark] = await convert(bookmarksFilePath);
 ```
 
 ## Testing
