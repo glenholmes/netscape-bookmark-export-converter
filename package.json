@@ -1,6 +1,6 @@
 {
   "name": "netscape-bookmark-export-converter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Converts Netscape Bookmark Format files used by popular web browsers to an array of objects containing individual bookmarks URI's and their respective folder tags.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -34,9 +34,7 @@
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "preversion": "npm run lint"
   },
   "files": ["lib/**/*"],
   "repository": {
