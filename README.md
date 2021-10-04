@@ -24,8 +24,10 @@ yarn add netscape-bookmark-export-converter
 ```
 
 ## Usage
+
+#### TypeScript
 ```ts
-import convert from 'netscape-bookmark-export-converter';
+import { convert } from 'netscape-bookmark-export-converter';
 import { join } from 'path';
 
 interface Bookmark {
@@ -33,11 +35,36 @@ interface Bookmark {
     tags: string[];
 }
 
-const bookmarksFilePath = join(__dirname, "bookmarks.html");
-const bookmarks: Bookmark[] = await convert(bookmarksFilePath);
+const convertFileToBookmarkArray: Bookmark[] = async (bookmarksFilePath) => {
+    // Convert File to Bookmarks Array
+    const bookmarks: Bookmark[] = await convert(bookmarksFilePath);
+
+    // Do something with the Bookmarks
+    console.log(bookmarks);
+}
+
+const bookmarksFilePath: string = join(__dirname, "bookmarks.html");
+convertFileToBookmarkArray(bookmarksFilePath);
+```
+#### JavaScript
+
+```js
+const convert = require('netscape-bookmark-export-converter').convert;
+const path = require('path');
+
+const convertFileToBookmarkArray = async (bookmarksFilePath) => {
+    // Convert File to Bookmarks Array
+    const bookmarks = await convert(bookmarksFilePath);
+
+    // Do something with the Bookmarks
+    console.log(bookmarks);
+}
+
+const bookmarksFilePath = path.join(__dirname, "bookmarks.html");
+convertFileToBookmarkArray(bookmarksFilePath);
 ```
 
-Example Output:
+#### Example Output
 ```
 [
     { url: 'http://example.com/', tags: [ 'Favorites bar' ] },

@@ -22,4 +22,5 @@ const convert = async (fileName: string) => {
   }
 };
 
+export { convert };
 export default convert;
