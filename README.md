@@ -35,7 +35,7 @@ interface Bookmark {
     tags: string[];
 }
 
-const convertFileToBookmarkArray: Bookmark[] = async (bookmarksFilePath) => {
+const convertFileToBookmarkArray = async (bookmarksFilePath) => {
     // Convert File to Bookmarks Array
     const bookmarks: Bookmark[] = await convert(bookmarksFilePath);
 
